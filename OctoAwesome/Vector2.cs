@@ -5,7 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace OctoAwesome {
-    struct Vector2 {
+    
+    public struct Vector2 {
         public float X;
         public float Y;
 

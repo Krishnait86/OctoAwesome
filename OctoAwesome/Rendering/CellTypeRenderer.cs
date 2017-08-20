@@ -28,7 +28,6 @@ namespace OctoAwesome.Rendering
         public CellTypeRenderer(string name)
         {
             center = Image.FromFile(String.Format("Assets/{0}_center.png", name));
-
             left = Image.FromFile(String.Format("Assets/{0}_left.png", name));
             right = Image.FromFile(String.Format("Assets/{0}_right.png", name));
             upper = Image.FromFile(String.Format("Assets/{0}_upper.png", name));

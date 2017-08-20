@@ -11,7 +11,7 @@ namespace OctoAwesome.Model
     [Serializable]
     public sealed class Map
     {
-        
+
 
         public int Columns { get; set; }
 
@@ -19,9 +19,12 @@ namespace OctoAwesome.Model
 
         public CellType[] Cells { get; set; }
 
+        public List<TreeItem> TreeItems {get; set;}
+
         public Map()
         {
-
+            TreeItems = new List<TreeItem>();
+            TreeItems.Add(new TreeItem() { Position = new Vector2(2, 2) });
         }
 
         public CellType GetCell(int x, int y)

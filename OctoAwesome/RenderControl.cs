@@ -25,6 +25,7 @@ namespace OctoAwesome
 
         private readonly Image grass;
         private readonly Image sprite;
+        private readonly Image tree;
 
         private readonly CellTypeRenderer sandRenderer;
         private readonly CellTypeRenderer waterRenderer;
@@ -41,8 +42,8 @@ namespace OctoAwesome
 
             sandRenderer = new CellTypeRenderer("sand");
             waterRenderer = new CellTypeRenderer("water");
-
             sprite = Image.FromFile("Assets/sprite.png");
+            tree = Image.FromFile("Assets/tree.png");
 
             watch.Start();
         }
@@ -96,6 +97,16 @@ namespace OctoAwesome
                             break;
                     }
                 }
+            }
+
+            foreach (var treeItem in game.Map.TreeItems.OrderBy(t => t.Position.Y))
+            {
+                e.Graphics.DrawImage(tree, new Rectangle(
+                                (int)(treeItem.Position.X * game.Camera.SCALE - game.Camera.ViewPort.X - 30),
+                                (int)(treeItem.Position.Y * game.Camera.SCALE - game.Camera.ViewPort.Y - 118),
+                                (int)game.Camera.SCALE,
+                                (int)game.Camera.SCALE * 2)
+                                );
             }
 
             int frame = (int)((watch.ElapsedMilliseconds / 250) % 4);
@@ -160,50 +171,6 @@ namespace OctoAwesome
                     SPRITE_WIDTH, SPRITE_HEIGHT),
                 new RectangleF(offsetx, offsety, SPRITE_WIDTH, SPRITE_HEIGHT),
                 GraphicsUnit.Pixel);
-
-            // e.Graphics.FillEllipse(brush, new Rectangle(Game.Position.X, Game.Position.Y, 100, 100));
         }
-
-        //private void DrawSand(Graphics g, int x, int y)
-        //{
-        //    DrawTexture(g, x, y, sand_center);
-
-        //    bool left = x > 0 && game.Map.GetCell(x - 1, y) != CellType.Sand;
-        //    bool top = y > 0 && game.Map.GetCell(x, y - 1) != CellType.Sand;
-        //    bool right = (x + 1) < game.Map.Columns && game.Map.GetCell(x + 1, y) != CellType.Sand;
-        //    bool bottom = (y + 1) < game.Map.Rows && game.Map.GetCell(x, y + 1) != CellType.Sand;
-
-        //    bool upperLeft = x > 0 && y > 0 && game.Map.GetCell(x - 1, y - 1) != CellType.Sand;
-        //    bool upperRight = (x + 1) < game.Map.Columns && y > 0 &&
-        //                        game.Map.GetCell(x + 1, y - 1) != CellType.Sand;
-        //    bool lowerLeft = x > 0 && y < game.Map.Rows &&
-        //                        game.Map.GetCell(x - 1, y + 1) != CellType.Sand;
-        //    bool lowerRight = (x + 1) < game.Map.Columns && (y + 1) < game.Map.Rows &&
-        //                        game.Map.GetCell(x + 1, y + 1) != CellType.Sand;
-
-        //    if (left) DrawTexture(g, x, y, sand_left);
-        //    if (top) DrawTexture(g, x, y, sand_upper);
-        //    if (right) DrawTexture(g, x, y, sand_right);
-        //    if (bottom) DrawTexture(g, x, y, sand_lower);
-
-        //    if (left && top) DrawTexture(g, x, y, sand_upperLeft_convex);
-        //    if (left && bottom) DrawTexture(g, x, y, sand_lowerLeft_convex);
-        //    if (right && top) DrawTexture(g, x, y, sand_upperRight_convex);
-        //    if (right && bottom) DrawTexture(g, x, y, sand_lowerRight_convex);
-
-        //    if (upperLeft && !top && !left) DrawTexture(g, x, y, sand_upperLeft_concave);
-        //    if (upperRight && !top && !right) DrawTexture(g, x, y, sand_upperRight_concave);
-        //    if (lowerLeft && !bottom && !left) DrawTexture(g, x, y, sand_lowerLeft_concave);
-        //    if (lowerRight && !bottom && !right) DrawTexture(g, x, y, sand_lowerRight_concave);
-        //}
-
-        //public void DrawTexture(Graphics g, int x, int y, Image image)
-        //{
-        //    g.DrawImage(image, new Rectangle(
-        //        (int)(x * game.Camera.SCALE - game.Camera.ViewPort.X),
-        //        (int)(y * game.Camera.SCALE - game.Camera.ViewPort.Y),
-        //        (int)game.Camera.SCALE,
-        //        (int)game.Camera.SCALE));
-        //}
     }
 }
