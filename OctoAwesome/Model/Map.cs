@@ -12,19 +12,18 @@ namespace OctoAwesome.Model
     public sealed class Map
     {
 
-
         public int Columns { get; set; }
 
         public int Rows { get; set; }
 
         public CellType[] Cells { get; set; }
 
-        public List<TreeItem> TreeItems {get; set;}
+        public List<Item> Items {get; set;}
 
         public Map()
         {
-            TreeItems = new List<TreeItem>();
-            TreeItems.Add(new TreeItem() { Position = new Vector2(2, 2) });
+            Items = new List<Item>();
+            Items.Add(new TreeItem() { Position = new Vector2(2, 2) });
         }
 
         public CellType GetCell(int x, int y)

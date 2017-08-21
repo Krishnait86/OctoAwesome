@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace OctoAwesome.Model
 {
-    public class TreeItem : Item
+    public abstract class Item
     {
+        public Vector2 Position { get; set; }
     }
 }

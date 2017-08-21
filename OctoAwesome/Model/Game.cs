@@ -34,6 +34,7 @@ namespace OctoAwesome.Model
             //Map = Map.Generate(20, 20, CellType.Grass);
             Map = Map.Load(@"C:\Users\Panda\Desktop\40zx40.map");
             Player = new Player(input, Map);
+            Map.Items.Add(Player);
             Camera = new Camera(this, input);
 
             cellTypes = new Dictionary<CellType, CellTypeDefinition>();
