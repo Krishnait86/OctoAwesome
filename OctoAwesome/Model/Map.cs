@@ -71,7 +71,7 @@ namespace OctoAwesome.Model
             XmlSerializer serializer = new XmlSerializer(typeof(Map));
             using (Stream stream = File.OpenRead(filename))
             {
-                return (Map)serializer.Deserialize(stream);
+                return (Map)serializer.Deserialize(stream);  
             }
         }
 
@@ -83,6 +83,14 @@ namespace OctoAwesome.Model
                 serializer.Serialize(stream, map);
             }
         }
+
+        #endregion
+
+        #region Cache
+
+        [XmlIgnore]
+
+        internal CellCache[,] CellCache { get; set; }
 
         #endregion
 
