@@ -23,7 +23,7 @@ namespace OctoAwesome.Model
         public Map()
         {
             Items = new List<Item>();
-            Items.Add(new TreeItem() { Position = new Vector2(2, 2) });
+            Items.Add(new BoxItem() { Position = new Vector2(3.5f, 1.5f) });
         }
 
         public CellType GetCell(int x, int y)

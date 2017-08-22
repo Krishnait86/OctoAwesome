@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OctoAwesome.Model
 {
-    internal sealed class Player : Item
+    internal sealed class Player : Item, IHaveInventory
     {
         private Input input;
         private Map map;
@@ -23,6 +23,10 @@ namespace OctoAwesome.Model
 
         public PlayerState State { get; private set; }
 
+        public IHaveInventory InteractionPartner { get; set; }
+
+        public List<InventoryItem> InventoryItems { get; private set; }
+
         public Player(Input input, Map map)
         {
             this.input = input;
@@ -30,6 +34,7 @@ namespace OctoAwesome.Model
             Position = new Vector2(0, 0);
             Velocity = new Vector2(0, 0);
             Radius = .1f;
+            InventoryItems = new List<InventoryItem>();
         }
 
         public void Update(TimeSpan frameTime)
@@ -38,8 +43,6 @@ namespace OctoAwesome.Model
                     (input.Left ? -1f : 0f) + (input.Right ? 1f : 0f),
                     (input.Up ? -1f : 0f) + (input.Down ? 1f : 0f)
                     );
-
-            
 
             if (Velocity.Length() > 0f)
             {
@@ -51,6 +54,28 @@ namespace OctoAwesome.Model
             else
             {
                 State = PlayerState.Idle;
+            }
+
+            if(input.Interact && InteractionPartner == null)
+            {
+                int cellX = (int)Position.X;
+                int cellY = (int)Position.Y;
+
+                float direction = ((Angle * 360f) / (float)(2 * Math.PI)) + 225;
+                int sector = (int)(direction / 90);
+
+                switch (sector)
+                {
+                    case 1: cellY -= 1; break;
+                    case 2: cellX += 1; break;
+                    case 3: cellY += 1; break;
+                    case 4: cellX -= 1; break;
+                }
+
+                InteractionPartner = map.Items.
+                    Where(i => (int)i.Position.X == cellX && (int)i.Position.Y == cellY).
+                    OfType<IHaveInventory>().
+                    FirstOrDefault();
             }
         }
     }

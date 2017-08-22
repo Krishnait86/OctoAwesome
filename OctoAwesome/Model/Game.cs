@@ -11,8 +11,7 @@ namespace OctoAwesome.Model
 {
     internal sealed class Game
     {
-        private Input input;
-
+        //private Input input;
         private Dictionary<CellType, CellTypeDefinition> cellTypes;
 
         public Camera Camera { get; private set; }
@@ -32,7 +31,7 @@ namespace OctoAwesome.Model
         public Game(Input input)
         {
             //Map = Map.Generate(20, 20, CellType.Grass);
-            Map = Map.Load(@"C:\Users\Panda\Desktop\test5.map");
+            Map = Map.Load(@"C:\Users\Panda\Desktop\test40zx40.map");
             Player = new Player(input, Map);
             
             Camera = new Camera(this, input);

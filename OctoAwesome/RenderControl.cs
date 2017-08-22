@@ -11,7 +11,6 @@ namespace OctoAwesome
 {
     internal partial class RenderControl : UserControl
     {
-
         private int SPRITE_WIDTH = 57;
         private int SPRITE_HEIGHT = 57;
 
@@ -22,6 +21,7 @@ namespace OctoAwesome
         private readonly Image grass;
         private readonly Image sprite;
         private readonly Image tree;
+        private readonly Image box;
 
         private readonly CellTypeRenderer sandRenderer;
         private readonly CellTypeRenderer waterRenderer;
@@ -40,6 +40,7 @@ namespace OctoAwesome
             waterRenderer = new CellTypeRenderer("water");
             sprite = Image.FromFile("Assets/sprite.png");
             tree = Image.FromFile("Assets/tree.png");
+            box = Image.FromFile("Assets/box.png");
 
             watch.Start();
         }
@@ -106,6 +107,16 @@ namespace OctoAwesome
                                     (int)(item.Position.Y * game.Camera.SCALE - game.Camera.ViewPort.Y - 118),
                                     (int)game.Camera.SCALE,
                                     (int)game.Camera.SCALE * 2)
+                                    );
+                }
+
+                if (item is BoxItem)
+                {
+                    e.Graphics.DrawImage(box, new Rectangle(
+                                    (int)(item.Position.X * game.Camera.SCALE - game.Camera.ViewPort.X - 32),
+                                    (int)(item.Position.Y * game.Camera.SCALE - game.Camera.ViewPort.Y - 35),
+                                    (int)game.Camera.SCALE,
+                                    (int)game.Camera.SCALE)
                                     );
                 }
 
