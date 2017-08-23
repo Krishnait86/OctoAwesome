@@ -1,13 +1,4 @@
-﻿// music https://youtu.be/a_gzph6pkEc?list=PLrQpK27RKimxOw41eTUSMyqRATkCA-1In
-
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
 using System.Diagnostics;
 using OctoAwesome.Model;
@@ -19,10 +10,11 @@ namespace OctoAwesome {
         private Game game;
         private Stopwatch watch = new Stopwatch();
         private RenderControl renderControl;
+        private InventoryForm inventory;
 
         public MainForm() {
             InitializeComponent();
-
+            inventory = new InventoryForm();
             game = new Game(input);
 
             renderControl = new RenderControl(game);
@@ -40,13 +32,24 @@ namespace OctoAwesome {
 
             if (game.Player.InteractionPartner != null)
             {
-                MessageBox.Show("Hurra!");
-                game.Player.InteractionPartner = null;
+                if (!inventory.Visible /*&& game.Player.InventoryIsOpened*/)
+                {
+                    /*game.Player.InventoryIsOpened = false;*/
+                    inventory.Show();
+                    inventory.Init(game.Player, game.Player.InteractionPartner);
+                }
+            }
+            else
+            {
+                if (inventory.Visible)
+                {
+                    inventory.Hide();
+                }
             }
         }
 
         private void closeMenu_Click(object sender, EventArgs e) {
-            this.Close();
+            Close();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
