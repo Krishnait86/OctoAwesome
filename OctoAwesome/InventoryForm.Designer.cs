@@ -30,9 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.listViewPlayer = new System.Windows.Forms.ListView();
-            this.listViewBox = new System.Windows.Forms.ListView();
-            this.timerInventory = new System.Windows.Forms.Timer(this.components);
+            this.listViewLeft = new System.Windows.Forms.ListView();
+            this.listViewRight = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
@@ -47,48 +46,50 @@
             // 
             // splitContainer.Panel1
             // 
-            this.splitContainer.Panel1.Controls.Add(this.listViewPlayer);
+            this.splitContainer.Panel1.Controls.Add(this.listViewLeft);
             // 
             // splitContainer.Panel2
             // 
-            this.splitContainer.Panel2.Controls.Add(this.listViewBox);
-            this.splitContainer.Size = new System.Drawing.Size(384, 261);
-            this.splitContainer.SplitterDistance = 192;
+            this.splitContainer.Panel2.Controls.Add(this.listViewRight);
+            this.splitContainer.Size = new System.Drawing.Size(464, 361);
+            this.splitContainer.SplitterDistance = 232;
             this.splitContainer.TabIndex = 1;
             // 
-            // listViewPlayer
+            // listViewLeft
             // 
-            this.listViewPlayer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listViewPlayer.Location = new System.Drawing.Point(0, 0);
-            this.listViewPlayer.Name = "listViewPlayer";
-            this.listViewPlayer.Size = new System.Drawing.Size(192, 261);
-            this.listViewPlayer.TabIndex = 0;
-            this.listViewPlayer.UseCompatibleStateImageBehavior = false;
+            this.listViewLeft.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewLeft.Location = new System.Drawing.Point(0, 0);
+            this.listViewLeft.Name = "listViewLeft";
+            this.listViewLeft.Size = new System.Drawing.Size(232, 361);
+            this.listViewLeft.TabIndex = 0;
+            this.listViewLeft.UseCompatibleStateImageBehavior = false;
+            this.listViewLeft.DoubleClick += new System.EventHandler(this.listViewLeft_DoubleClick);
             // 
-            // listViewBox
+            // listViewRight
             // 
-            this.listViewBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listViewBox.Location = new System.Drawing.Point(0, 0);
-            this.listViewBox.Name = "listViewBox";
-            this.listViewBox.Size = new System.Drawing.Size(188, 261);
-            this.listViewBox.TabIndex = 1;
-            this.listViewBox.UseCompatibleStateImageBehavior = false;
+            this.listViewRight.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listViewRight.Location = new System.Drawing.Point(0, 0);
+            this.listViewRight.Name = "listViewRight";
+            this.listViewRight.Size = new System.Drawing.Size(228, 361);
+            this.listViewRight.TabIndex = 1;
+            this.listViewRight.UseCompatibleStateImageBehavior = false;
+            this.listViewRight.DoubleClick += new System.EventHandler(this.listViewRight_DoubleClick);
             // 
             // timerInventory
             // 
-            this.timerInventory.Enabled = true;
             // 
             // InventoryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 261);
+            this.ClientSize = new System.Drawing.Size(464, 361);
             this.Controls.Add(this.splitContainer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.KeyPreview = true;
             this.Name = "InventoryForm";
             this.Text = "Inventory";
-            //this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.InventoryForm_KeyDown);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InventoryForm_FormClosing);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.InventoryForm_KeyDown);
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
@@ -100,8 +101,7 @@
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer;
-        private System.Windows.Forms.ListView listViewPlayer;
-        private System.Windows.Forms.ListView listViewBox;
-        private System.Windows.Forms.Timer timerInventory;
+        private System.Windows.Forms.ListView listViewLeft;
+        private System.Windows.Forms.ListView listViewRight;
     }
 }
