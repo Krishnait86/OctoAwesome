@@ -35,7 +35,6 @@ namespace OctoAwesome
             game.Camera.SetRenderSize(new Vector2(ClientSize.Width, ClientSize.Height));
 
             grass = Image.FromFile("Assets/grass_center.png");
-
             sandRenderer = new CellTypeRenderer("sand");
             waterRenderer = new CellTypeRenderer("water");
             sprite = Image.FromFile("Assets/sprite.png");

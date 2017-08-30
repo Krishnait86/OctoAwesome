@@ -5,17 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using OctoAwesome.Model;
 using System.Drawing;
+using Microsoft.Xna.Framework;
 
 namespace OctoAwesome.Components {
     internal sealed class Camera {
-        private Game game;
-        private Input input;
+        private OctoAwesome.Model.Game game;
+        private Input2 input;
         private Vector2 renderSize;
 
         public readonly float MAXSPEED = 1000f;
         public readonly float SCALE = 64f;
 
-        public Camera(Game game, Input input) {
+        public Camera(OctoAwesome.Model.Game game, Input2 input) {
             this.game = game;
             this.input = input;
         }
@@ -25,7 +26,7 @@ namespace OctoAwesome.Components {
             RecalcViewPort();
         }
 
-        public void Update(TimeSpan frameTime) {
+        public void Update(GameTime frameTime) {
             //Vector2 velocity = new Vector2(
             //        (input.CamLeft ? -1f : 0f) + (input.CamRight ? 1f : 0f),
             //        (input.CamUp ? -1f : 0f) + (input.CamDown ? 1f : 0f)
@@ -76,10 +77,10 @@ namespace OctoAwesome.Components {
             float offsetX = game.Camera.Center.X - (this.renderSize.X / 2);
             float offsetY = game.Camera.Center.Y - (this.renderSize.Y / 2);
 
-            ViewPort = new RectangleF(offsetX, offsetY, renderSize.X, renderSize.Y);
+            ViewPort = new Rectangle((int)offsetX, (int)offsetY, (int)renderSize.X, (int)renderSize.Y);
         }
 
         public Vector2 Center { get; private set; }
-        public RectangleF ViewPort { get; set; }
+        public Rectangle ViewPort { get; set; }
     }
 }

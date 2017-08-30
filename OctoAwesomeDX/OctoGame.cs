@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using OctoAwesome.Components;
+using OctoAwesome.Rendering;
 
 namespace OctoAwesomeDX
 {
@@ -13,11 +15,23 @@ namespace OctoAwesomeDX
         SpriteBatch spriteBatch;
 
         OctoAwesome.Model.Game game;
+        Input2 input;
 
-        public OctoGame()
+        private Texture2D grass;
+        private Texture2D sprite;
+        private Texture2D tree;
+        private Texture2D box;
+
+        private CellTypeRenderer sandRenderer;
+        private CellTypeRenderer waterRenderer;
+
+        public OctoGame() : base()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            Input2 input = new Input2(this);
+            Components.Add(input);
         }
 
         /// <summary>
@@ -28,9 +42,7 @@ namespace OctoAwesomeDX
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            game = new OctoAwesome.Model.Game();
-            base.Initialize();
+            game = new OctoAwesome.Model.Game(input);
         }
 
         /// <summary>
@@ -42,32 +54,27 @@ namespace OctoAwesomeDX
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            grass = Content.Load<Texture2D>("Textures/grass_center");
+
+            sandRenderer = new CellTypeRenderer(Content, "sand");
+            waterRenderer = new CellTypeRenderer(Content, "water");
+
+            sprite = Content.Load<Texture2D>("Textures/sprite");
+            tree = Content.Load<Texture2D>("Textures/tree");
+            box = Content.Load<Texture2D>("Textures/box");
+
             Content.Load<Texture2D>("Textures/tree");
 
             // TODO: use this.Content to load your game content here
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// game-specific content.
-        /// </summary>
-        protected override void UnloadContent()
-        {
-            // TODO: Unload any non ContentManager content here
-        }
-
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
             //if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             //    Exit();
 
             // TODO: Add your update logic here
-
+            game.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -78,6 +85,10 @@ namespace OctoAwesomeDX
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            spriteBatch.Begin();
+
+            spriteBatch.End();
 
             // TODO: Add your drawing code here
 

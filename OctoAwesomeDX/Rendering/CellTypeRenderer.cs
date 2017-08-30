@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using OctoAwesome.Components;
 using OctoAwesome.Model;
 using System;
@@ -26,24 +28,24 @@ namespace OctoAwesome.Rendering
         private readonly Texture2D lowerLeft_convex;
         private readonly Texture2D lowerRight_convex;
 
-        public CellTypeRenderer(string name)
+        public CellTypeRenderer(ContentManager content, string name)
         {
-            center = Image.FromFile(String.Format("Assets/{0}_center.png", name));
-            left = Image.FromFile(String.Format("Assets/{0}_left.png", name));
-            right = Image.FromFile(String.Format("Assets/{0}_right.png", name));
-            upper = Image.FromFile(String.Format("Assets/{0}_upper.png", name));
-            lower = Image.FromFile(String.Format("Assets/{0}_lower.png", name));
-            upperLeft_concave = Image.FromFile(String.Format("Assets/{0}_upperLeft_concave.png", name));
-            upperRight_concave = Image.FromFile(String.Format("Assets/{0}_upperRight_concave.png", name));
-            lowerLeft_concave = Image.FromFile(String.Format("Assets/{0}_lowerLeft_concave.png", name));
-            lowerRight_concave = Image.FromFile(String.Format("Assets/{0}_lowerRight_concave.png", name));
-            upperLeft_convex = Image.FromFile(String.Format("Assets/{0}_upperLeft_convex.png", name));
-            upperRight_convex = Image.FromFile(String.Format("Assets/{0}_upperRight_convex.png", name));
-            lowerLeft_convex = Image.FromFile(String.Format("Assets/{0}_lowerLeft_convex.png", name));
-            lowerRight_convex = Image.FromFile(String.Format("Assets/{0}_lowerRight_convex.png", name));
+            center = content.Load<Texture2D>(String.Format("Textures/{0}_center", name));
+            left = content.Load<Texture2D>(String.Format("Textures/{0}_left", name));
+            right = content.Load<Texture2D>(String.Format("Textures/{0}_right", name));
+            upper = content.Load<Texture2D>(String.Format("Textures/{0}_upper", name));
+            lower = content.Load<Texture2D>(String.Format("Textures/{0}_lower", name));
+            upperLeft_concave = content.Load<Texture2D>(String.Format("Textures/{0}_upperLeft_concave", name));
+            upperRight_concave = content.Load<Texture2D>(String.Format("Textures/{0}_upperRight_concave", name));
+            lowerLeft_concave = content.Load<Texture2D>(String.Format("Textures/{0}_lowerLeft_concave", name));
+            lowerRight_concave = content.Load<Texture2D>(String.Format("Textures/{0}_lowerRight_concave", name));
+            upperLeft_convex = content.Load<Texture2D>(String.Format("Textures/{0}_upperLeft_convex", name));
+            upperRight_convex = content.Load<Texture2D>(String.Format("Textures/{0}_upperRight_convex", name));
+            lowerLeft_convex = content.Load<Texture2D>(String.Format("Textures/{0}_lowerLeft_convex", name));
+            lowerRight_convex = content.Load<Texture2D>(String.Format("Textures/{0}_lowerRight_convex", name));
         }
 
-        public void Draw(Graphics g, Game game, int x, int y)
+        public void Draw(SpriteBatch g, OctoAwesome.Model.Game game, int x, int y)
         {
             CellType centerType = game.Map.GetCell(x, y);
 
@@ -78,13 +80,14 @@ namespace OctoAwesome.Rendering
             if (lowerRight && !bottom && !right) DrawTexture(g, game.Camera, x, y, lowerRight_concave);
         }
 
-        public static void DrawTexture(Graphics g, Camera camera, int x, int y, Image image)
+        public static void DrawTexture(SpriteBatch g, Camera camera, int x, int y, Texture2D image)
         {
-            g.DrawImage(image, new Rectangle(
+            g.Draw (image, new Rectangle(
                 (int)(x * camera.SCALE - camera.ViewPort.X),
                 (int)(y * camera.SCALE - camera.ViewPort.Y),
                 (int)camera.SCALE,
-                (int)camera.SCALE));
+                (int)camera.SCALE),
+                Color.White);
         }
     }
 }

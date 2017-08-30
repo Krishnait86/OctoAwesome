@@ -26,7 +26,7 @@ namespace OctoAwesome.Model
 
         public Player Player { get; private set; }
 
-        public Game(Input input)
+        public Game(Input2 input)
         {
             Map = Map.Load(@"C:\Users\Panda\Desktop\test40zx40.map");
             Player = new Player(input, Map);
@@ -61,7 +61,7 @@ namespace OctoAwesome.Model
             Map.Items.Add(Player);
         }
         
-        public void Update(TimeSpan frameTime)
+        public void Update(GameTime frameTime)
         {
             Player.Update(frameTime);
 
@@ -72,7 +72,8 @@ namespace OctoAwesome.Model
             Vector2 velocity = Player.Velocity;
             velocity *= cell.VelocityFactor;
 
-            Vector2 newPosition = Player.Position + (velocity * (float)frameTime.TotalSeconds);
+            Vector2 newPosition = Player.Position +
+                (velocity * (float)frameTime.ElapsedGameTime.TotalSeconds);
 
             if (velocity.X < 0)
             {

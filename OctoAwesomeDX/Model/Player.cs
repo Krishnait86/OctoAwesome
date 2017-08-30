@@ -1,4 +1,5 @@
-﻿using OctoAwesome.Components;
+﻿using Microsoft.Xna.Framework;
+using OctoAwesome.Components;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace OctoAwesome.Model
 {
     internal sealed class Player : Item, IHaveInventory
     {
-        private Input input;
+        private Input2 input;
         private Map map;
 
         public readonly float MAXSPEED = 4f;
@@ -25,7 +26,7 @@ namespace OctoAwesome.Model
 
         public List<InventoryItem> InventoryItems { get; private set; }
 
-        public Player(Input input, Map map)
+        public Player(Input2 input, Map map)
         {
             this.input = input;
             this.map = map;
@@ -45,9 +46,10 @@ namespace OctoAwesome.Model
 
             if (Velocity.Length() > 0f)
             {
-                Velocity = Velocity.Normalized() * MAXSPEED;
+                Velocity.Normalize();
+                Velocity *= MAXSPEED;
                 State = PlayerState.Walk;
-                Angle = Velocity.Angle();
+                Angle = (float)Math.Atan2(Velocity.Y, Velocity.X);
             }
             else
             {
