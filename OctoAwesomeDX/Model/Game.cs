@@ -12,8 +12,6 @@ namespace OctoAwesome.Model
     {
         private Dictionary<CellType, CellTypeDefinition> cellTypes;
 
-        public Camera Camera { get; private set; }
-
         public Vector2 PlaygroundSize
         {
             get
@@ -26,13 +24,11 @@ namespace OctoAwesome.Model
 
         public Player Player { get; private set; }
 
-        public Game(Input2 input)
+        public Game(InputComponent input)
         {
             Map = Map.Load(@"Assets\test40zx40.map");
             Player = new Player(input, Map);
             
-            Camera = new Camera(this, input);
-
             cellTypes = new Dictionary<CellType, CellTypeDefinition>();
             cellTypes.Add(CellType.Grass, new CellTypeDefinition() { CanGoto = true, VelocityFactor = .8f });
             cellTypes.Add(CellType.Sand, new CellTypeDefinition() { CanGoto = true, VelocityFactor = 1f });
@@ -129,6 +125,7 @@ namespace OctoAwesome.Model
                 float posBottom = newPosition.Y + Player.Radius;
                 cellX = (int)Player.Position.X;
                 cellY = (int)posBottom;
+                
                 cell = Map.CellCache[cellX, cellY];
 
                 if (cellY >= Map.Rows || !cell.CanGoto)
@@ -138,7 +135,6 @@ namespace OctoAwesome.Model
             }
 
             Player.Position = newPosition;
-            Camera.Update(frameTime);
         }
     }
 }

@@ -45,11 +45,11 @@ namespace OctoAwesome.Rendering
             lowerRight_convex = content.Load<Texture2D>($"Textures/{name}_lowerRight_convex");
         }
 
-        public void Draw(SpriteBatch g, OctoAwesome.Model.Game game, int x, int y)
+        public void Draw(SpriteBatch g, CameraComponent camera, OctoAwesome.Model.Game game, int x, int y)
         {
             CellType centerType = game.Map.GetCell(x, y);
 
-            DrawTexture(g, game.Camera, x, y, center);
+            DrawTexture(g, camera, x, y, center);
 
             bool left = x > 0 && game.Map.GetCell(x - 1, y) != centerType;
             bool top = y > 0 && game.Map.GetCell(x, y - 1) != centerType;
@@ -64,23 +64,23 @@ namespace OctoAwesome.Rendering
             bool lowerRight = (x + 1) < game.Map.Columns && (y + 1) < game.Map.Rows &&
                                 game.Map.GetCell(x + 1, y + 1) != centerType;
 
-            if (left) DrawTexture(g, game.Camera, x, y, this.left);
-            if (top) DrawTexture(g, game.Camera, x, y, upper);
-            if (right) DrawTexture(g, game.Camera, x, y, this.right);
-            if (bottom) DrawTexture(g, game.Camera, x, y, lower);
+            if (left) DrawTexture(g, camera, x, y, this.left);
+            if (top) DrawTexture(g, camera, x, y, upper);
+            if (right) DrawTexture(g, camera, x, y, this.right);
+            if (bottom) DrawTexture(g, camera, x, y, lower);
 
-            if (left && top) DrawTexture(g, game.Camera, x, y, upperLeft_convex);
-            if (left && bottom) DrawTexture(g, game.Camera, x, y, lowerLeft_convex);
-            if (right && top) DrawTexture(g, game.Camera, x, y, upperRight_convex);
-            if (right && bottom) DrawTexture(g, game.Camera, x, y, lowerRight_convex);
+            if (left && top) DrawTexture(g, camera, x, y, upperLeft_convex);
+            if (left && bottom) DrawTexture(g, camera, x, y, lowerLeft_convex);
+            if (right && top) DrawTexture(g, camera, x, y, upperRight_convex);
+            if (right && bottom) DrawTexture(g, camera, x, y, lowerRight_convex);
 
-            if (upperLeft && !top && !left) DrawTexture(g, game.Camera, x, y, upperLeft_concave);
-            if (upperRight && !top && !right) DrawTexture(g, game.Camera, x, y, upperRight_concave);
-            if (lowerLeft && !bottom && !left) DrawTexture(g, game.Camera, x, y, lowerLeft_concave);
-            if (lowerRight && !bottom && !right) DrawTexture(g, game.Camera, x, y, lowerRight_concave);
+            if (upperLeft && !top && !left) DrawTexture(g, camera, x, y, upperLeft_concave);
+            if (upperRight && !top && !right) DrawTexture(g, camera, x, y, upperRight_concave);
+            if (lowerLeft && !bottom && !left) DrawTexture(g, camera, x, y, lowerLeft_concave);
+            if (lowerRight && !bottom && !right) DrawTexture(g, camera, x, y, lowerRight_concave);
         }
 
-        public static void DrawTexture(SpriteBatch g, Camera camera, int x, int y, Texture2D image)
+        public static void DrawTexture(SpriteBatch g, CameraComponent camera, int x, int y, Texture2D image)
         {
             g.Draw (image, new Rectangle(
                 (int)(x * camera.SCALE - camera.ViewPort.X),
