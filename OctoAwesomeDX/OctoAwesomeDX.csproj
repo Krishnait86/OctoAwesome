@@ -42,7 +42,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Components\Camera.cs" />
-    <Compile Include="Components\Input.cs" />
     <Compile Include="Components\Input2.cs" />
     <Compile Include="Model\BoxItem.cs" />
     <Compile Include="Model\CellCache.cs" />

@@ -1604,4 +1604,29 @@
     <CellType>Grass</CellType>
     <CellType>Grass</CellType>
   </Cells>
+  <Items>
+    <Item xsi:type="BoxItem">
+      <Position>
+        <X>3.5</X>
+        <Y>1.5</Y>
+      </Position>
+      <InventoryItems>
+        <InventoryItem>
+          <Name>Diamant</Name>
+        </InventoryItem>
+      </InventoryItems>
+    </Item>
+    <Item xsi:type="TreeItem">
+      <Position>
+        <X>8.5</X>
+        <Y>7.5</Y>
+      </Position>
+    </Item>
+    <Item xsi:type="TreeItem">
+      <Position>
+        <X>9.5</X>
+        <Y>6.5</Y>
+      </Position>
+    </Item>
+  </Items>
 </Map>

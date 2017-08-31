@@ -25,8 +25,15 @@ namespace OctoAwesome.Components
             Interact = gamePadState.Buttons.A == ButtonState.Pressed;
             Left = gamePadState.ThumbSticks.Left.X < -.5f;
             Right = gamePadState.ThumbSticks.Left.X > .5f;
-            Up = gamePadState.ThumbSticks.Left.Y < -.5f;
-            Down = gamePadState.ThumbSticks.Left.Y > .5f;
+            Down = gamePadState.ThumbSticks.Left.Y < -.5f;
+            Up = gamePadState.ThumbSticks.Left.Y > .5f;
+
+            KeyboardState keyBoardState = Keyboard.GetState();
+            Interact |= keyBoardState.IsKeyDown(Keys.Space);
+            Left |= keyBoardState.IsKeyDown(Keys.Left);
+            Right |= keyBoardState.IsKeyDown(Keys.Right);
+            Up |= keyBoardState.IsKeyDown(Keys.Up);
+            Down |= keyBoardState.IsKeyDown(Keys.Down);
         }
     }
 }

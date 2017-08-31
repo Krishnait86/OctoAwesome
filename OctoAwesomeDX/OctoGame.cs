@@ -19,7 +19,6 @@ namespace OctoAwesomeDX
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        OctoAwesome.Model.Game game;
         Input2 input;
 
         private Texture2D grass;
@@ -29,6 +28,8 @@ namespace OctoAwesomeDX
 
         private CellTypeRenderer sandRenderer;
         private CellTypeRenderer waterRenderer;
+
+        OctoAwesome.Model.Game game;
 
         public OctoGame() : base()
         {
@@ -48,6 +49,7 @@ namespace OctoAwesomeDX
         protected override void Initialize()
         {
             game = new OctoAwesome.Model.Game(input);
+            base.Initialize();
         }
 
         /// <summary>
@@ -68,7 +70,9 @@ namespace OctoAwesomeDX
             tree = Content.Load<Texture2D>("Textures/tree");
             box = Content.Load<Texture2D>("Textures/box");
 
-            Content.Load<Texture2D>("Textures/tree");
+            //Content.Load<Texture2D>("Textures/tree");
+
+            game.Camera.SetRenderSize(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
 
             // TODO: use this.Content to load your game content here
         }
@@ -89,8 +93,6 @@ namespace OctoAwesomeDX
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            if (spriteBatch == null)
-                LoadContent();
 
             GraphicsDevice.Clear(new Color(.2470f, .0980f, 0f));
 
@@ -196,8 +198,8 @@ namespace OctoAwesomeDX
                     Point spriteCenter = new Point(27, 48);
                     spriteBatch.Draw(sprite,
                         new Rectangle(
-                            (int)((game.Player.Position.X * game.Camera.SCALE) - game.Camera.ViewPort.X - spriteCenter.X),
-                            (int)((game.Player.Position.Y * game.Camera.SCALE) - game.Camera.ViewPort.Y - spriteCenter.Y),
+                            ((int)(game.Player.Position.X * game.Camera.SCALE) - game.Camera.ViewPort.X - spriteCenter.X),
+                            ((int)(game.Player.Position.Y * game.Camera.SCALE) - game.Camera.ViewPort.Y - spriteCenter.Y),
                             SPRITE_WIDTH, SPRITE_HEIGHT),
                         new Rectangle(offsetx, offsety, SPRITE_WIDTH, SPRITE_HEIGHT),
                         Color.White);

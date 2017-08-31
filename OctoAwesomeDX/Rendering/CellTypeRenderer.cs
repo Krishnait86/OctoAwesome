@@ -30,19 +30,19 @@ namespace OctoAwesome.Rendering
 
         public CellTypeRenderer(ContentManager content, string name)
         {
-            center = content.Load<Texture2D>(String.Format("Textures/{0}_center", name));
-            left = content.Load<Texture2D>(String.Format("Textures/{0}_left", name));
-            right = content.Load<Texture2D>(String.Format("Textures/{0}_right", name));
-            upper = content.Load<Texture2D>(String.Format("Textures/{0}_upper", name));
-            lower = content.Load<Texture2D>(String.Format("Textures/{0}_lower", name));
-            upperLeft_concave = content.Load<Texture2D>(String.Format("Textures/{0}_upperLeft_concave", name));
-            upperRight_concave = content.Load<Texture2D>(String.Format("Textures/{0}_upperRight_concave", name));
-            lowerLeft_concave = content.Load<Texture2D>(String.Format("Textures/{0}_lowerLeft_concave", name));
-            lowerRight_concave = content.Load<Texture2D>(String.Format("Textures/{0}_lowerRight_concave", name));
-            upperLeft_convex = content.Load<Texture2D>(String.Format("Textures/{0}_upperLeft_convex", name));
-            upperRight_convex = content.Load<Texture2D>(String.Format("Textures/{0}_upperRight_convex", name));
-            lowerLeft_convex = content.Load<Texture2D>(String.Format("Textures/{0}_lowerLeft_convex", name));
-            lowerRight_convex = content.Load<Texture2D>(String.Format("Textures/{0}_lowerRight_convex", name));
+            center = content.Load<Texture2D>($"Textures/{name}_center");
+            left = content.Load<Texture2D>($"Textures/{name}_left");
+            right = content.Load<Texture2D>($"Textures/{name}_right");
+            upper = content.Load<Texture2D>($"Textures/{name}_upper");
+            lower = content.Load<Texture2D>($"Textures/{name}_lower");
+            upperLeft_concave = content.Load<Texture2D>($"Textures/{name}_upperLeft_concave");
+            upperRight_concave = content.Load<Texture2D>($"Textures/{name}_upperRight_concave");
+            lowerLeft_concave = content.Load<Texture2D>($"Textures/{name}_lowerLeft_concave");
+            lowerRight_concave = content.Load<Texture2D>($"Textures/{name}_lowerRight_concave");
+            upperLeft_convex = content.Load<Texture2D>($"Textures/{name}_upperLeft_convex");
+            upperRight_convex = content.Load<Texture2D>($"Textures/{name}_upperRight_convex");
+            lowerLeft_convex = content.Load<Texture2D>($"Textures/{name}_lowerLeft_convex");
+            lowerRight_convex = content.Load<Texture2D>($"Textures/{name}_lowerRight_convex");
         }
 
         public void Draw(SpriteBatch g, OctoAwesome.Model.Game game, int x, int y)

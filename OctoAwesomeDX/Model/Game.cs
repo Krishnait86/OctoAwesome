@@ -28,7 +28,7 @@ namespace OctoAwesome.Model
 
         public Game(Input2 input)
         {
-            Map = Map.Load(@"C:\Users\Panda\Desktop\test40zx40.map");
+            Map = Map.Load(@"Assets\test40zx40.map");
             Player = new Player(input, Map);
             
             Camera = new Camera(this, input);
