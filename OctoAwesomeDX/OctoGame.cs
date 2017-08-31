@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Linq;
 using OctoAwesome.Components;
 using OctoAwesome.Rendering;
+using System;
 
 namespace OctoAwesomeDX
 {
@@ -11,6 +13,9 @@ namespace OctoAwesomeDX
     /// </summary>
     public class OctoGame : Microsoft.Xna.Framework.Game
     {
+        private int SPRITE_WIDTH = 57;
+        private int SPRITE_HEIGHT = 57;
+
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
@@ -30,7 +35,7 @@ namespace OctoAwesomeDX
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            Input2 input = new Input2(this);
+            input = new Input2(this);
             Components.Add(input);
         }
 
@@ -84,13 +89,122 @@ namespace OctoAwesomeDX
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            if (spriteBatch == null)
+                LoadContent();
+
+            GraphicsDevice.Clear(new Color(.2470f, .0980f, 0f));
 
             spriteBatch.Begin();
 
-            spriteBatch.End();
+            if (game == null)
+                return;
 
-            // TODO: Add your drawing code here
+            int cellX1 = Math.Max(0, (int)(game.Camera.ViewPort.X / game.Camera.SCALE));
+            int cellY1 = Math.Max(0, (int)(game.Camera.ViewPort.Y / game.Camera.SCALE));
+
+            int cellCountX = (int)(GraphicsDevice.Viewport.Width / game.Camera.SCALE) + 2;
+            int cellCountY = (int)(GraphicsDevice.Viewport.Height / game.Camera.SCALE) + 2;
+
+            int cellX2 = Math.Min(cellX1 + cellCountX, (int)(game.PlaygroundSize.X));
+            int cellY2 = Math.Min(cellY1 + cellCountY, (int)(game.PlaygroundSize.Y));
+
+            for (int x = cellX1; x < cellX2; x++)
+            {
+                for (int y = cellY1; y < cellY2; y++)
+                {
+                    OctoAwesome.Model.CellCache cell = game.Map.CellCache[x, y];
+
+                    switch (cell.CellType)
+                    {
+                        case OctoAwesome.Model.CellType.Grass:
+                            spriteBatch.Draw(grass, new Rectangle(
+                                (int)(x * game.Camera.SCALE - game.Camera.ViewPort.X),
+                                (int)(y * game.Camera.SCALE - game.Camera.ViewPort.Y),
+                                (int)game.Camera.SCALE,
+                                (int)game.Camera.SCALE),
+                                Color.White
+                                );
+                            break;
+
+                        case OctoAwesome.Model.CellType.Sand:
+                            sandRenderer.Draw(spriteBatch, game, x, y);
+                            break;
+
+                        case OctoAwesome.Model.CellType.Water:
+                            waterRenderer.Draw(spriteBatch, game, x, y);
+                            break;
+                    }
+                }
+            }
+
+            foreach (var item in game.Map.Items.OrderBy(t => t.Position.Y))
+            {
+                if (item is OctoAwesome.Model.TreeItem)
+                {
+                    spriteBatch.Draw(tree, new Rectangle(
+                                    (int)(item.Position.X * game.Camera.SCALE - game.Camera.ViewPort.X - 30),
+                                    (int)(item.Position.Y * game.Camera.SCALE - game.Camera.ViewPort.Y - 118),
+                                    (int)game.Camera.SCALE,
+                                    (int)game.Camera.SCALE * 2),
+                                    Color.White
+                                    );
+                }
+
+                if (item is OctoAwesome.Model.BoxItem)
+                {
+                    spriteBatch.Draw(box, new Rectangle(
+                                    (int)(item.Position.X * game.Camera.SCALE - game.Camera.ViewPort.X - 32),
+                                    (int)(item.Position.Y * game.Camera.SCALE - game.Camera.ViewPort.Y - 35),
+                                    (int)game.Camera.SCALE,
+                                    (int)game.Camera.SCALE),
+                                    Color.White
+                                    );
+                }
+
+                if (item is OctoAwesome.Model.Player)
+                {
+                    int frame = (int)((gameTime.TotalGameTime.TotalMilliseconds / 250) % 4);
+                    int offsetx = 0;
+
+                    if (game.Player.State == OctoAwesome.Model.PlayerState.Walk)
+                    {
+                        switch (frame)
+                        {
+                            case 0: offsetx = 0; break;
+                            case 1: offsetx = SPRITE_WIDTH; break;
+                            case 2: offsetx = 2 * SPRITE_WIDTH; break;
+                            case 3: offsetx = SPRITE_WIDTH; break;
+                        }
+                    }
+                    else
+                    {
+                        offsetx = SPRITE_WIDTH;
+                    }
+
+                    float direction = (game.Player.Angle * 360f) / (float)(2 * Math.PI) + 225f;
+                    float sector = (int)(direction / 90);
+                    int offsety = 0;
+
+                    switch (sector)
+                    {
+                        case 1: offsety = 3 * SPRITE_HEIGHT; break;
+                        case 2: offsety = 2 * SPRITE_HEIGHT; break;
+                        case 3: offsety = 0 * SPRITE_HEIGHT; break;
+                        case 4: offsety = 1 * SPRITE_HEIGHT; break;
+                    }
+
+                    Point spriteCenter = new Point(27, 48);
+                    spriteBatch.Draw(sprite,
+                        new Rectangle(
+                            (int)((game.Player.Position.X * game.Camera.SCALE) - game.Camera.ViewPort.X - spriteCenter.X),
+                            (int)((game.Player.Position.Y * game.Camera.SCALE) - game.Camera.ViewPort.Y - spriteCenter.Y),
+                            SPRITE_WIDTH, SPRITE_HEIGHT),
+                        new Rectangle(offsetx, offsety, SPRITE_WIDTH, SPRITE_HEIGHT),
+                        Color.White);
+                }
+            }
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }

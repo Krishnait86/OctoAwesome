@@ -37,7 +37,7 @@ namespace OctoAwesome.Model
             InventoryItems.Add(new InventoryItem() { Name = "Apfel" });
         }
 
-        public void Update(TimeSpan frameTime)
+        public void Update(GameTime frameTime)
         {
             Velocity = new Vector2(
                     (input.Left ? -1f : 0f) + (input.Right ? 1f : 0f),
