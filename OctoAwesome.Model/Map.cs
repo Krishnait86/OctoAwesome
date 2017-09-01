@@ -12,9 +12,7 @@ namespace OctoAwesome.Model
     [Serializable]
     public sealed class Map
     {
-
         public int Columns { get; set; }
-
         public int Rows { get; set; }
 
         public CellType[] Cells { get; set; }
@@ -91,7 +89,7 @@ namespace OctoAwesome.Model
 
         [XmlIgnore]
 
-        internal CellCache[,] CellCache { get; set; }
+        public CellCache[,] CellCache { get; set; }
 
         #endregion
 

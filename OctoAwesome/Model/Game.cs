@@ -10,7 +10,6 @@ namespace OctoAwesome.Model
     internal sealed class Game
     {
         private Dictionary<CellType, CellTypeDefinition> cellTypes;
-
         public Camera Camera { get; private set; }
 
         public Vector2 PlaygroundSize
@@ -22,14 +21,12 @@ namespace OctoAwesome.Model
         }
 
         public Map Map { get; private set; }
-
         public Player Player { get; private set; }
 
         public Game(Input input)
         {
             Map = Map.Load(@"C:\Users\Panda\Desktop\test40zx40.map");
             Player = new Player(input, Map);
-            
             Camera = new Camera(this, input);
 
             cellTypes = new Dictionary<CellType, CellTypeDefinition>();
@@ -67,10 +64,8 @@ namespace OctoAwesome.Model
             int cellX = (int)Player.Position.X;
             int cellY = (int)Player.Position.Y;
             CellCache cell = Map.CellCache[cellX, cellY];
-
             Vector2 velocity = Player.Velocity;
             velocity *= cell.VelocityFactor;
-
             Vector2 newPosition = Player.Position + (velocity * (float)frameTime.TotalSeconds);
 
             if (velocity.X < 0)
@@ -134,7 +129,6 @@ namespace OctoAwesome.Model
                     newPosition = new Vector2(newPosition.X, cellY - Player.Radius);
                 }
             }
-
             Player.Position = newPosition;
             Camera.Update(frameTime);
         }

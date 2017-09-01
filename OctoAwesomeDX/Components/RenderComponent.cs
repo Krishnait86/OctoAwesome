@@ -29,11 +29,11 @@ namespace OctoAwesome.Components
         public RenderComponent(Game game, WorldComponent world, CameraComponent camera) : base(game)
         {
             this.camera = camera;
+            this.world = world;
         }
 
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
 
@@ -45,12 +45,6 @@ namespace OctoAwesome.Components
             sprite = Game.Content.Load<Texture2D>("Textures/sprite");
             tree = Game.Content.Load<Texture2D>("Textures/tree");
             box = Game.Content.Load<Texture2D>("Textures/box");
-
-            //Content.Load<Texture2D>("Textures/tree");
-
-            //
-
-            // TODO: use this.Content to load your game content here
         }
 
         public override void Draw(GameTime gameTime)
@@ -167,7 +161,6 @@ namespace OctoAwesome.Components
                         Color.White);
                 }
             }
-
             spriteBatch.End();
         }
     }

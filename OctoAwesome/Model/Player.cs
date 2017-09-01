@@ -10,19 +10,14 @@ namespace OctoAwesome.Model
     {
         private Input input;
         private Map map;
-
         public readonly float MAXSPEED = 4f;
 
         public Vector2 Velocity { get; set; }
-
         public float Radius { get; private set; }
-
         public float Angle { get; private set; }
 
         public PlayerState State { get; private set; }
-
         public IHaveInventory InteractionPartner { get; set; }
-
         public List<InventoryItem> InventoryItems { get; private set; }
 
         public Player(Input input, Map map)

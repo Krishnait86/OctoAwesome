@@ -14,7 +14,6 @@ namespace OctoAwesomeDX
     public class OctoGame : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
-
         CameraComponent camera;
         RenderComponent render;
         InputComponent input;

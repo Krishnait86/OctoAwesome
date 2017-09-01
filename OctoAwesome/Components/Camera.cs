@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using OctoAwesome.Model;
 using System.Drawing;
 
-namespace OctoAwesome.Components {
-    internal sealed class Camera {
+namespace OctoAwesome.Components
+{
+    internal sealed class Camera
+    {
         private Game game;
         private Input input;
         private Vector2 renderSize;
@@ -15,17 +17,21 @@ namespace OctoAwesome.Components {
         public readonly float MAXSPEED = 1000f;
         public readonly float SCALE = 64f;
 
-        public Camera(Game game, Input input) {
+        public Camera(Game game, Input input)
+        {
             this.game = game;
             this.input = input;
         }
 
-        public void SetRenderSize(Vector2 renderSize) {
+        public void SetRenderSize(Vector2 renderSize)
+        {
             this.renderSize = renderSize;
             RecalcViewPort();
         }
 
-        public void Update(TimeSpan frameTime) {
+        public void Update(TimeSpan frameTime)
+
+        {
             //Vector2 velocity = new Vector2(
             //        (input.CamLeft ? -1f : 0f) + (input.CamRight ? 1f : 0f),
             //        (input.CamUp ? -1f : 0f) + (input.CamDown ? 1f : 0f)
@@ -52,9 +58,6 @@ namespace OctoAwesome.Components {
 
             if (posY > ViewPort.Height - frameY)
                 Center = new Vector2(Center.X, Center.Y + (posY - (ViewPort.Height - frameY)));
-
-
-
 
             if (Center.X < (ViewPort.Width / 2) - 100)
                 Center = new Vector2((ViewPort.Width / 2) - 100, Center.Y);

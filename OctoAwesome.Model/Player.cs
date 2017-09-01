@@ -7,26 +7,21 @@ using System.Text;
 
 namespace OctoAwesome.Model
 {
-    internal sealed class Player : Item, IHaveInventory
+    public sealed class Player : Item, IHaveInventory
     {
-        private InputComponent input;
+        private IInputSet input;
         private Map map;
-
         public readonly float MAXSPEED = 4f;
 
         public Vector2 Velocity { get; set; }
-
         public float Radius { get; private set; }
-
         public float Angle { get; private set; }
 
         public PlayerState State { get; private set; }
-
         public IHaveInventory InteractionPartner { get; set; }
-
         public List<InventoryItem> InventoryItems { get; private set; }
 
-        public Player(InputComponent input, Map map)
+        public Player(IInputSet input, Map map)
         {
             this.input = input;
             this.map = map;
@@ -71,7 +66,6 @@ namespace OctoAwesome.Model
 
             if (input.Interact && InteractionPartner == null)
             {
-                input.Interact = false;
                 InteractionPartner = map.Items.Where(i =>
                     (int)i.Position.X == cellX &&
                     (int)i.Position.Y == cellY).

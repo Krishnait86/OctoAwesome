@@ -8,9 +8,11 @@ using System.Drawing;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace OctoAwesome.Components {
+namespace OctoAwesome.Components
+{
 
-    internal sealed class CameraComponent : DrawableGameComponent {
+    internal sealed class CameraComponent : DrawableGameComponent
+    {
         private WorldComponent world;
         private InputComponent input;
         private Vector2 renderSize;
@@ -18,13 +20,14 @@ namespace OctoAwesome.Components {
         public readonly float MAXSPEED = 1000f;
         public readonly float SCALE = 64f;
 
-        public CameraComponent(
-            Microsoft.Xna.Framework.Game game, WorldComponent world, InputComponent input) : base(game) {
+        public CameraComponent(Game game, WorldComponent world, InputComponent input) : base(game)
+        {
             this.world = world;
             this.input = input;
         }
 
-        public void SetRenderSize(Vector2 renderSize) {
+        public void SetRenderSize(Vector2 renderSize)
+        {
             this.renderSize = renderSize;
             RecalcViewPort();
         }
@@ -34,7 +37,8 @@ namespace OctoAwesome.Components {
             SetRenderSize(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
         }
 
-        public override void Update(GameTime frameTime) {
+        public override void Update(GameTime frameTime)
+        {
             //Vector2 velocity = new Vector2(
             //        (input.CamLeft ? -1f : 0f) + (input.CamRight ? 1f : 0f),
             //        (input.CamUp ? -1f : 0f) + (input.CamDown ? 1f : 0f)
@@ -75,10 +79,10 @@ namespace OctoAwesome.Components {
                 Center = new Vector2(Center.X, (world.World.PlaygroundSize.Y * SCALE) - (ViewPort.Height / 2) + 100);
 
             RecalcViewPort();
-
         }
 
-        private void RecalcViewPort() {
+        private void RecalcViewPort()
+        {
             float offsetX = Center.X - (this.renderSize.X / 2);
             float offsetY = Center.Y - (this.renderSize.Y / 2);
 

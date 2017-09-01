@@ -8,7 +8,7 @@ using System.Text;
 
 namespace OctoAwesome.Model
 {
-    internal sealed class Game
+    public sealed class World
     {
         private Dictionary<CellType, CellTypeDefinition> cellTypes;
 
@@ -24,7 +24,7 @@ namespace OctoAwesome.Model
 
         public Player Player { get; private set; }
 
-        public Game(InputComponent input)
+        public World(IInputSet input)
         {
             Map = Map.Load(@"Assets\test40zx40.map");
             Player = new Player(input, Map);
@@ -133,7 +133,6 @@ namespace OctoAwesome.Model
                     newPosition = new Vector2(newPosition.X, cellY - Player.Radius);
                 }
             }
-
             Player.Position = newPosition;
         }
     }
