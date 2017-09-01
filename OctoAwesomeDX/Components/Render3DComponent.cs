@@ -13,15 +13,20 @@ namespace OctoAwesome.Components
         VertexPositionColor[] vertices;
         BasicEffect effect;
 
-        public Render3DComponent(Game game) : base(game) { }
+        float rotY = 0f;
+
+        public Render3DComponent(Game game) : base(game)
+        {
+            
+        }
 
         protected override void LoadContent()
         {
             vertices = new VertexPositionColor[]
             {
-                new VertexPositionColor(new Vector3(-5,5,0), Color.Red),
-                new VertexPositionColor(new Vector3(5,5,0), Color.Green),
-                new VertexPositionColor(new Vector3(0,-5,0), Color.Yellow)
+                new VertexPositionColor(new Vector3(-5f,5f,0f), Color.Red),
+                new VertexPositionColor(new Vector3(5f,5f,0f), Color.Green),
+                new VertexPositionColor(new Vector3(0f,-5f,0f), Color.Yellow)
             };
 
             effect = new BasicEffect(GraphicsDevice);
@@ -32,13 +37,29 @@ namespace OctoAwesome.Components
                 MathHelper.PiOver4, GraphicsDevice.Viewport.AspectRatio, 1f, 10000f);
             effect.VertexColorEnabled = true;
 
+            RasterizerState rasterazerState = new RasterizerState();
+            rasterazerState.CullMode = CullMode.None;
+            rasterazerState.FillMode = FillMode.WireFrame;
+
+            GraphicsDevice.RasterizerState = rasterazerState;
+
             base.LoadContent(); 
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            rotY += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            //GraphicsDevice.RasterizerState.CullMode = CullMode.None;
+            //GraphicsDevice.RasterizerState.FillMode = FillMode.WireFrame;
+
+            effect.World = Matrix.CreateRotationY(rotY);
             foreach (var pass in effect.CurrentTechnique.Passes)
             {
                 pass.Apply();
@@ -47,3 +68,14 @@ namespace OctoAwesome.Components
         }
     }
 }
+
+//public RasterizerState()
+//{
+//    CullMode = CullMode.CullCounterClockwiseFace;
+//    FillMode = FillMode.Solid;
+//    DepthBias = 0;
+//    MultiSampleAntiAlias = true;
+//    ScissorTestEnable = false;
+//    SlopeScaleDepthBias = 0;
+//    DepthClipEnable = true;
+//}

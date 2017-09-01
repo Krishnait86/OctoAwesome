@@ -24,6 +24,13 @@ namespace OctoAwesomeDX
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            this.Window.Title = "OctoAwesome";
+            //this.Window.IsBorderless = true;
+            //graphics.IsFullScreen = true;
+
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
+            this.IsMouseVisible = true;
 
             input = new InputComponent(this);
             input.UpdateOrder = 1;
@@ -36,10 +43,6 @@ namespace OctoAwesomeDX
             camera = new CameraComponent(this, world, input);
             camera.UpdateOrder = 3;
             Components.Add(camera);
-
-            //render = new RenderComponent(this, world, camera);
-            //render.DrawOrder = 1;
-            //Components.Add(render);
 
             render3d = new Render3DComponent(this);
             render3d.DrawOrder = 1;
