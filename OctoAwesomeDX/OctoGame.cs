@@ -44,7 +44,7 @@ namespace OctoAwesomeDX
             camera.UpdateOrder = 3;
             Components.Add(camera);
 
-            render3d = new Render3DComponent(this);
+            render3d = new Render3DComponent(this, world);
             render3d.DrawOrder = 1;
             Components.Add(render3d);
         }
