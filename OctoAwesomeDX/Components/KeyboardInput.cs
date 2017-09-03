@@ -18,11 +18,11 @@ namespace OctoAwesome.Components
         public void Update()
         {
             KeyboardState keyBoardState = Keyboard.GetState();
-            Interact |= keyBoardState.IsKeyDown(Keys.Space);
-            Left |= keyBoardState.IsKeyDown(Keys.Left);
-            Right |= keyBoardState.IsKeyDown(Keys.Right);
-            Up |= keyBoardState.IsKeyDown(Keys.Up);
-            Down |= keyBoardState.IsKeyDown(Keys.Down);
+            Interact = keyBoardState.IsKeyDown(Keys.Space);
+            Left = keyBoardState.IsKeyDown(Keys.Left);
+            Right = keyBoardState.IsKeyDown(Keys.Right);
+            Up = keyBoardState.IsKeyDown(Keys.Up);
+            Down = keyBoardState.IsKeyDown(Keys.Down);
         }
     }
 }
