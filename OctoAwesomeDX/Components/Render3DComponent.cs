@@ -14,15 +14,19 @@ namespace OctoAwesome.Components
         private Camera3DComponent camera;
 
         private BasicEffect effect;
+        private Texture2D grass;
+        private Texture2D sand;
+        private Texture2D water;
+
+        private Texture2D sprite;
+        private Texture2D tree;
+        private Texture2D box;
 
         private VertexBuffer vb;
         private IndexBuffer ib;
         private int vertexCount;
         private int indexCount;
 
-        private Texture2D grass;
-        private Texture2D sand;
-        private Texture2D water;
 
         public Render3DComponent(Game game, WorldComponent world, Camera3DComponent camera) : base(game)
         {
@@ -70,6 +74,10 @@ namespace OctoAwesome.Components
             sand = Game.Content.Load<Texture2D>("Textures/sand_center");
             water = Game.Content.Load<Texture2D>("Textures/water_center");
 
+            tree = Game.Content.Load<Texture2D>("Textures/tree");
+            box = Game.Content.Load<Texture2D>("Textures/box");
+            sprite = Game.Content.Load<Texture2D>("Textures/sprite");
+
             effect = new BasicEffect(GraphicsDevice);
             //effect.EnableDefaultLighting();
 
@@ -78,7 +86,7 @@ namespace OctoAwesome.Components
             effect.Projection = camera.Projection;
 
             effect.TextureEnabled = true;
-            effect.Texture = grass;
+            //effect.Texture = grass;
 
             RasterizerState rasterazerState = new RasterizerState();
             rasterazerState.CullMode = CullMode.None;
@@ -105,6 +113,10 @@ namespace OctoAwesome.Components
             GraphicsDevice.SetVertexBuffer(vb);
             GraphicsDevice.Indices = ib;
 
+            GraphicsDevice.BlendState = BlendState.AlphaBlend;
+
+            //effect.World = Matrix.CreateTranslation();
+            effect.World = Matrix.Identity;
             effect.View = camera.View;
 
             for (int z = 0; z < height; z++)
@@ -117,12 +129,15 @@ namespace OctoAwesome.Components
                     {
                         case Model.CellType.Grass:
                             effect.Texture = grass;
+                            //effect.World = Matrix.CreateTranslation(0, 0, 0f);
                             break;
                         case Model.CellType.Sand:
                             effect.Texture = sand;
+                            //effect.World = Matrix.CreateTranslation(0, 0, 0f);
                             break;
                         case Model.CellType.Water:
                             effect.Texture = water;
+                            //effect.World = Matrix.CreateTranslation(0, -.01f, .01f);
                             break;
                     }
 
@@ -131,10 +146,116 @@ namespace OctoAwesome.Components
                     foreach (var pass in effect.CurrentTechnique.Passes)
                     {
                         pass.Apply();
-                        
-#pragma warning disable CS0618 // Type or member is obsolete
                         GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, vertexCount, indexOffset, 2);
-#pragma warning restore CS0618 // Type or member is obsolete
+                    }
+                }
+            }
+
+            foreach (var item in world.World.Map.Items.OrderBy(t => t.Position.Y))
+            {
+                if (item is OctoAwesome.Model.TreeItem)
+                {
+                    effect.Texture = tree;
+
+                    VertexPositionNormalTexture[] treeVertices = new VertexPositionNormalTexture[]
+                    {
+                        new VertexPositionNormalTexture(new Vector3(-.5f, 2f, 0f), Vector3.Backward, new Vector2(0, 0)),
+                        new VertexPositionNormalTexture(new Vector3( .5f, 2f, 0f), Vector3.Backward, new Vector2(1, 0)),
+                        new VertexPositionNormalTexture(new Vector3( .5f, 0f, 0f), Vector3.Backward, new Vector2(1, 1)),
+                        new VertexPositionNormalTexture(new Vector3(-.5f, 2f, 0f), Vector3.Backward, new Vector2(0, 0)),
+                        new VertexPositionNormalTexture(new Vector3( .5f, 0f, 0f), Vector3.Backward, new Vector2(1, 1)),
+                        new VertexPositionNormalTexture(new Vector3(-.5f, 0f, 0f), Vector3.Backward, new Vector2(0, 1)),
+                    };
+
+                    Vector3 itemPos = new Vector3(item.Position.X, 0, item.Position.Y);
+
+                    // and it creates 2nd, invisible collisionable box item, cause BoxItem generates in Map.cs
+                    effect.World = Matrix.CreateBillboard(itemPos, camera.CameraPosition, camera.CameraUpVector, null) *
+                        Matrix.CreateTranslation(item.Position.X, 0, item.Position.Y);
+
+                    foreach (var pass in effect.CurrentTechnique.Passes)
+                    {
+                        pass.Apply();
+                        GraphicsDevice.DrawUserPrimitives<VertexPositionNormalTexture>(PrimitiveType.TriangleList, treeVertices, 0, 2);
+                    }
+                }
+
+                if (item is OctoAwesome.Model.BoxItem)
+                {
+                    effect.Texture = box;
+
+                    VertexPositionNormalTexture[] boxVertices = new VertexPositionNormalTexture[]
+                    {
+                        new VertexPositionNormalTexture(new Vector3(-.5f, 1f, 0f), Vector3.Backward, new Vector2(0, 0)),
+                        new VertexPositionNormalTexture(new Vector3( .5f, 1f, 0f), Vector3.Backward, new Vector2(1, 0)),
+                        new VertexPositionNormalTexture(new Vector3( .5f, 0f, 0f), Vector3.Backward, new Vector2(1, 1)),
+                        new VertexPositionNormalTexture(new Vector3(-.5f, 1f, 0f), Vector3.Backward, new Vector2(0, 0)),
+                        new VertexPositionNormalTexture(new Vector3( .5f, 0f, 0f), Vector3.Backward, new Vector2(1, 1)),
+                        new VertexPositionNormalTexture(new Vector3(-.5f, 0f, 0f), Vector3.Backward, new Vector2(0, 1)),
+                    };
+
+                    effect.World = Matrix.CreateTranslation(item.Position.X, 0, item.Position.Y);
+
+                    foreach (var pass in effect.CurrentTechnique.Passes)
+                    {
+                        pass.Apply();
+                        GraphicsDevice.DrawUserPrimitives<VertexPositionNormalTexture>(PrimitiveType.TriangleList, boxVertices, 0, 2);
+                    }
+                }
+
+                if (item is OctoAwesome.Model.Player)
+                {
+                    effect.Texture = sprite;
+
+                    float spriteWidth = 1f / 9;
+                    float spriteHeight = 1f / 8;
+
+                    int frame = (int)((gameTime.TotalGameTime.TotalMilliseconds / 250) % 4);
+                    float offsetx = 0;
+
+                    if (world.World.Player.State == OctoAwesome.Model.PlayerState.Walk)
+                    {
+                        switch (frame)
+                        {
+                            case 0: offsetx = 0; break;
+                            case 1: offsetx = spriteWidth; break;
+                            case 2: offsetx = 2 * spriteWidth; break;
+                            case 3: offsetx = spriteWidth; break;
+                        }
+                    }
+                    else
+                    {
+                        offsetx = spriteWidth;
+                    }
+
+                    float direction = (world.World.Player.Angle * 360f) / (float)(2 * Math.PI) + 225f;
+                    float sector = (int)(direction / 90);
+                    float offsety = 0;
+
+                    switch (sector)
+                    {
+                        case 1: offsety = 3 * spriteHeight; break;
+                        case 2: offsety = 2 * spriteHeight; break;
+                        case 3: offsety = 0 * spriteHeight; break;
+                        case 4: offsety = 1 * spriteHeight; break;
+                    }
+
+                    VertexPositionNormalTexture[] spriteVertices = new VertexPositionNormalTexture[]
+                    {
+                        new VertexPositionNormalTexture(new Vector3(-.5f, 1f, 0f), Vector3.Backward, new Vector2(offsetx, offsety)),
+                        new VertexPositionNormalTexture(new Vector3( .5f, 1f, 0f), Vector3.Backward, new Vector2(offsetx + spriteWidth, offsety)),
+                        new VertexPositionNormalTexture(new Vector3( .5f, 0f, 0f), Vector3.Backward, new Vector2(offsetx + spriteWidth, offsety + spriteHeight)),
+                        new VertexPositionNormalTexture(new Vector3(-.5f, 1f, 0f), Vector3.Backward, new Vector2(offsetx, offsety)),
+                        new VertexPositionNormalTexture(new Vector3( .5f, 0f, 0f), Vector3.Backward, new Vector2(offsetx + spriteWidth, offsety + spriteHeight)),
+                        new VertexPositionNormalTexture(new Vector3(-.5f, 0f, 0f), Vector3.Backward, new Vector2(offsetx, offsety + spriteHeight)),
+                    };
+
+                    effect.World = Matrix.CreateTranslation(item.Position.X, 0f, item.Position.Y);
+
+                    foreach (var pass in effect.CurrentTechnique.Passes)
+                    {
+                        pass.Apply();
+                        GraphicsDevice.DrawUserPrimitives<VertexPositionNormalTexture>(PrimitiveType.TriangleList, spriteVertices, 0, 2);
                     }
                 }
             }

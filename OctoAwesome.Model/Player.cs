@@ -25,7 +25,7 @@ namespace OctoAwesome.Model
         {
             this.input = input;
             this.map = map;
-            Position = new Vector2(0, 0);
+            Position = new Vector2(1, 1);
             Velocity = new Vector2(0, 0);
             Radius = .1f;
             InventoryItems = new List<InventoryItem>();

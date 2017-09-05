@@ -1607,8 +1607,8 @@
   <Items>
     <Item xsi:type="BoxItem">
       <Position>
-        <X>3.5</X>
-        <Y>1.5</Y>
+        <X>5.5</X>
+        <Y>2.5</Y>
       </Position>
       <InventoryItems>
         <InventoryItem>
@@ -1618,14 +1618,56 @@
     </Item>
     <Item xsi:type="TreeItem">
       <Position>
+        <X>1.5</X>
+        <Y>2.5</Y>
+      </Position>
+    </Item>
+    <Item xsi:type="TreeItem">
+      <Position>
+        <X>3.5</X>
+        <Y>4.5</Y>
+      </Position>
+    </Item>
+    <Item xsi:type="TreeItem">
+      <Position>
+        <X>5.5</X>
+        <Y>5.5</Y>
+      </Position>
+    </Item>
+    <Item xsi:type="TreeItem">
+      <Position>
         <X>8.5</X>
+        <Y>6.5</Y>
+      </Position>
+    </Item>
+    <Item xsi:type="TreeItem">
+      <Position>
+        <X>14.5</X>
         <Y>7.5</Y>
       </Position>
     </Item>
     <Item xsi:type="TreeItem">
       <Position>
-        <X>9.5</X>
+        <X>20.5</X>
         <Y>6.5</Y>
+      </Position>
+    </Item>
+    <Item xsi:type="TreeItem">
+      <Position>
+        <X>23.5</X>
+        <Y>5.5</Y>
+      </Position>
+    </Item>
+    <Item xsi:type="TreeItem">
+      <Position>
+        <X>25.5</X>
+        <Y>4.5</Y>
+      </Position>
+    </Item>
+    <Item xsi:type="TreeItem">
+      <Position>
+        <X>27.5</X>
+        <Y>2.5</Y>
       </Position>
     </Item>
   </Items>
