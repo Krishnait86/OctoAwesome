@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace MapEditor
 {
@@ -20,7 +21,6 @@ namespace MapEditor
         private bool mouseActive = false;
         private Point mousePosition = new Point();
         private bool mouseDraw = false;
-
 
         public MainForm()
         {
@@ -162,7 +162,6 @@ namespace MapEditor
                     break;
 
                 case ToolType.ItemDelete:
-                    //map.SetCell(mousePosition.X, mousePosition.Y, CellType.Grass);
                     map.Items.RemoveAll(i =>
                     (int)i.Position.X == mousePosition.X &&
                     (int)i.Position.Y == mousePosition.Y);
@@ -190,13 +189,11 @@ namespace MapEditor
         private void renderControl_MouseMove(object sender, MouseEventArgs e)
         {
             mousePosition = new Point((int)(e.X / cellSize), (int)(e.Y / cellSize));
-
             drawCell();
         }
 
         private void toolStripStatusLabel1_Click(object sender, EventArgs e)
         {
-
         }
 
         private void sandButton_Click(object sender, EventArgs e)
@@ -252,7 +249,6 @@ namespace MapEditor
             if (e.Button == MouseButtons.Left)
             {
                 mouseDraw = true;
-
                 drawCell();
             }
         }
@@ -269,8 +265,13 @@ namespace MapEditor
         {
             if (map == null)
                 return;
+
             if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
             {
+                if (File.Exists(saveFileDialog.FileName))
+                {
+                    File.Delete(saveFileDialog.FileName);
+                }
                 Map.Save(saveFileDialog.FileName, map);
             }
         }

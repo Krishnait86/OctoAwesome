@@ -21,12 +21,11 @@ namespace OctoAwesome.Model
         }
 
         public Map Map { get; private set; }
-
         public Player Player { get; private set; }
 
         public World(IInputSet input)
         {
-            Map = Map.Load(@"Assets\test40zx40.map");
+            Map = Map.Load(@"Assets\test10.map");
             Player = new Player(input, Map);
             
             cellTypes = new Dictionary<CellType, CellTypeDefinition>();
@@ -67,7 +66,6 @@ namespace OctoAwesome.Model
 
             Vector2 velocity = Player.Velocity;
             velocity *= cell.VelocityFactor;
-
             Vector2 newPosition = Player.Position +
                 (velocity * (float)frameTime.ElapsedGameTime.TotalSeconds);
 
@@ -125,7 +123,6 @@ namespace OctoAwesome.Model
                 float posBottom = newPosition.Y + Player.Radius;
                 cellX = (int)Player.Position.X;
                 cellY = (int)posBottom;
-                
                 cell = Map.CellCache[cellX, cellY];
 
                 if (cellY >= Map.Rows || !cell.CanGoto)

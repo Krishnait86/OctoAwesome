@@ -27,7 +27,6 @@ namespace OctoAwesome.Components
         private int vertexCount;
         private int indexCount;
 
-
         public Render3DComponent(Game game, WorldComponent world, Camera3DComponent camera) : base(game)
         {
             this.world = world;
@@ -115,7 +114,6 @@ namespace OctoAwesome.Components
 
             GraphicsDevice.BlendState = BlendState.AlphaBlend;
 
-            //effect.World = Matrix.CreateTranslation();
             effect.World = Matrix.Identity;
             effect.View = camera.View;
 
@@ -167,11 +165,13 @@ namespace OctoAwesome.Components
                         new VertexPositionNormalTexture(new Vector3(-.5f, 0f, 0f), Vector3.Backward, new Vector2(0, 1)),
                     };
 
-                    Vector3 itemPos = new Vector3(item.Position.X, 0, item.Position.Y);
-
-                    // and it creates 2nd, invisible collisionable box item, cause BoxItem generates in Map.cs
-                    effect.World = Matrix.CreateBillboard(itemPos, camera.CameraPosition, camera.CameraUpVector, null) *
-                        Matrix.CreateTranslation(item.Position.X, 0, item.Position.Y);
+                    //Vector3 itemPos = new Vector3(item.Position.X, 0, item.Position.Y);
+                    //effect.World = Matrix.CreateBillboard(itemPos, camera.CameraPosition, camera.CameraUpVector, null) *
+                    //Matrix.CreateTranslation(item.Position.X, 0, item.Position.Y);
+                    // tadaa
+                    Matrix billboard = Matrix.Invert(camera.View);
+                    billboard.Translation = new Vector3(item.Position.X, 0, item.Position.Y);
+                    effect.World = billboard;
 
                     foreach (var pass in effect.CurrentTechnique.Passes)
                     {
@@ -194,7 +194,9 @@ namespace OctoAwesome.Components
                         new VertexPositionNormalTexture(new Vector3(-.5f, 0f, 0f), Vector3.Backward, new Vector2(0, 1)),
                     };
 
-                    effect.World = Matrix.CreateTranslation(item.Position.X, 0, item.Position.Y);
+                    Matrix billboard = Matrix.Invert(camera.View);
+                    billboard.Translation = new Vector3(item.Position.X, 0, item.Position.Y);
+                    effect.World = billboard;
 
                     foreach (var pass in effect.CurrentTechnique.Passes)
                     {
@@ -250,7 +252,9 @@ namespace OctoAwesome.Components
                         new VertexPositionNormalTexture(new Vector3(-.5f, 0f, 0f), Vector3.Backward, new Vector2(offsetx, offsety + spriteHeight)),
                     };
 
-                    effect.World = Matrix.CreateTranslation(item.Position.X, 0f, item.Position.Y);
+                    Matrix billboard = Matrix.Invert(camera.View);
+                    billboard.Translation = new Vector3(item.Position.X, 0, item.Position.Y);
+                    effect.World = billboard;
 
                     foreach (var pass in effect.CurrentTechnique.Passes)
                     {

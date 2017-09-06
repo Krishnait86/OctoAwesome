@@ -20,7 +20,7 @@ namespace OctoAwesomeDX
         InputComponent input;
         WorldComponent world;
         Render3DComponent render3d;
-
+        
         public OctoGame() : base()
         {
             graphics = new GraphicsDeviceManager(this);

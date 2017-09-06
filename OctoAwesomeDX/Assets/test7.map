@@ -43,9 +43,6 @@
     <CellType>Sand</CellType>
     <CellType>Sand</CellType>
     <CellType>Sand</CellType>
-    <CellType>Grass</CellType>
-    <CellType>Grass</CellType>
-    <CellType>Grass</CellType>
     <CellType>Sand</CellType>
     <CellType>Sand</CellType>
     <CellType>Sand</CellType>
@@ -63,9 +60,6 @@
     <CellType>Sand</CellType>
     <CellType>Sand</CellType>
     <CellType>Sand</CellType>
-    <CellType>Grass</CellType>
-    <CellType>Sand</CellType>
-    <CellType>Grass</CellType>
     <CellType>Sand</CellType>
     <CellType>Sand</CellType>
     <CellType>Sand</CellType>
@@ -83,9 +77,15 @@
     <CellType>Sand</CellType>
     <CellType>Sand</CellType>
     <CellType>Sand</CellType>
-    <CellType>Grass</CellType>
-    <CellType>Grass</CellType>
-    <CellType>Grass</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Sand</CellType>
     <CellType>Sand</CellType>
     <CellType>Sand</CellType>
     <CellType>Sand</CellType>
@@ -422,23 +422,6 @@
         <Y>1.5</Y>
       </Position>
       <InventoryItems>
-        <InventoryItem>
-          <Name>Diamant</Name>
-        </InventoryItem>
-        <InventoryItem>
-          <Name>Diamant</Name>
-        </InventoryItem>
-      </InventoryItems>
-    </Item>
-    <Item xsi:type="BoxItem">
-      <Position>
-        <X>3.5</X>
-        <Y>1.5</Y>
-      </Position>
-      <InventoryItems>
-        <InventoryItem>
-          <Name>Diamant</Name>
-        </InventoryItem>
         <InventoryItem>
           <Name>Diamant</Name>
         </InventoryItem>

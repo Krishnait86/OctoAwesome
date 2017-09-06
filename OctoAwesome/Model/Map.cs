@@ -11,19 +11,22 @@ namespace OctoAwesome.Model
     [Serializable]
     public sealed class Map
     {
-
+        
         public int Columns { get; set; }
-
         public int Rows { get; set; }
 
         public CellType[] Cells { get; set; }
-
         public List<Item> Items {get; set;}
 
+        // This Is OctoAwesome/Model Map! (MapEditor Map) //
         public Map()
         {
             Items = new List<Item>();
-            Items.Add(new BoxItem() { Position = new Vector2(3.5f, 1.5f) });
+
+            if (!new StreamReader(@"Assets\test10.map").ReadToEnd().Contains("BoxItem"))
+            {
+                Items.Add(new BoxItem() { Position = new Vector2(5.5f, 2.5f) });
+            }
         }
 
         public CellType GetCell(int x, int y)
@@ -46,10 +49,8 @@ namespace OctoAwesome.Model
                 throw new ArgumentException("height");
 
             Map map = new Map();
-
             map.Columns = width;
             map.Rows = height;
-
             map.Cells = new CellType[width * height];
 
             for (int x = 0; x < width; x++)
@@ -71,7 +72,7 @@ namespace OctoAwesome.Model
             XmlSerializer serializer = new XmlSerializer(typeof(Map));
             using (Stream stream = File.OpenRead(filename))
             {
-                return (Map)serializer.Deserialize(stream);  
+                return (Map)serializer.Deserialize(stream);
             }
         }
 
@@ -89,7 +90,6 @@ namespace OctoAwesome.Model
         #region Cache
 
         [XmlIgnore]
-
         internal CellCache[,] CellCache { get; set; }
 
         #endregion

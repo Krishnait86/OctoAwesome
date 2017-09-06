@@ -19,10 +19,15 @@ namespace OctoAwesome.Model
 
         public List<Item> Items {get; set;}
 
+        // This Is OctoAwesome.Model Map! (OctoAwesomeDX Map) //
         public Map()
         {
             Items = new List<Item>();
-            Items.Add(new BoxItem() { Position = new Vector2(5.5f, 2.5f) });
+
+            if (!new StreamReader(@"Assets\test10.map").ReadToEnd().Contains("BoxItem"))
+            {
+                Items.Add(new BoxItem() { Position = new Vector2(5.5f, 6.5f) });
+            }
         }
 
         public CellType GetCell(int x, int y)
@@ -50,7 +55,6 @@ namespace OctoAwesome.Model
             map.Rows = height;
 
             map.Cells = new CellType[width * height];
-
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
@@ -64,7 +68,6 @@ namespace OctoAwesome.Model
         #endregion
         
         #region Loader
-
         public static Map Load(string filename)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(Map));
@@ -88,7 +91,6 @@ namespace OctoAwesome.Model
         #region Cache
 
         [XmlIgnore]
-
         public CellCache[,] CellCache { get; set; }
 
         #endregion

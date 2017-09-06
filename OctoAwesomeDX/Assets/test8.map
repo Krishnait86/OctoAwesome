@@ -27,6 +27,26 @@
     <CellType>Sand</CellType>
     <CellType>Sand</CellType>
     <CellType>Sand</CellType>
+    <CellType>Water</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Sand</CellType>
+    <CellType>Grass</CellType>
+    <CellType>Grass</CellType>
+    <CellType>Grass</CellType>
+    <CellType>Sand</CellType>
     <CellType>Sand</CellType>
     <CellType>Sand</CellType>
     <CellType>Sand</CellType>
@@ -45,26 +65,6 @@
     <CellType>Sand</CellType>
     <CellType>Grass</CellType>
     <CellType>Grass</CellType>
-    <CellType>Grass</CellType>
-    <CellType>Sand</CellType>
-    <CellType>Sand</CellType>
-    <CellType>Sand</CellType>
-    <CellType>Sand</CellType>
-    <CellType>Sand</CellType>
-    <CellType>Sand</CellType>
-    <CellType>Sand</CellType>
-    <CellType>Sand</CellType>
-    <CellType>Sand</CellType>
-    <CellType>Sand</CellType>
-    <CellType>Sand</CellType>
-    <CellType>Sand</CellType>
-    <CellType>Sand</CellType>
-    <CellType>Sand</CellType>
-    <CellType>Sand</CellType>
-    <CellType>Sand</CellType>
-    <CellType>Sand</CellType>
-    <CellType>Grass</CellType>
-    <CellType>Sand</CellType>
     <CellType>Grass</CellType>
     <CellType>Sand</CellType>
     <CellType>Sand</CellType>
@@ -407,41 +407,10 @@
   <Items>
     <Item xsi:type="BoxItem">
       <Position>
-        <X>3.5</X>
-        <Y>1.5</Y>
+        <X>5.5</X>
+        <Y>2.5</Y>
       </Position>
       <InventoryItems>
-        <InventoryItem>
-          <Name>Diamant</Name>
-        </InventoryItem>
-      </InventoryItems>
-    </Item>
-    <Item xsi:type="BoxItem">
-      <Position>
-        <X>3.5</X>
-        <Y>1.5</Y>
-      </Position>
-      <InventoryItems>
-        <InventoryItem>
-          <Name>Diamant</Name>
-        </InventoryItem>
-        <InventoryItem>
-          <Name>Diamant</Name>
-        </InventoryItem>
-      </InventoryItems>
-    </Item>
-    <Item xsi:type="BoxItem">
-      <Position>
-        <X>3.5</X>
-        <Y>1.5</Y>
-      </Position>
-      <InventoryItems>
-        <InventoryItem>
-          <Name>Diamant</Name>
-        </InventoryItem>
-        <InventoryItem>
-          <Name>Diamant</Name>
-        </InventoryItem>
         <InventoryItem>
           <Name>Diamant</Name>
         </InventoryItem>
@@ -449,8 +418,68 @@
     </Item>
     <Item xsi:type="TreeItem">
       <Position>
+        <X>4.5</X>
+        <Y>4.5</Y>
+      </Position>
+    </Item>
+    <Item xsi:type="TreeItem">
+      <Position>
+        <X>6.5</X>
+        <Y>6.5</Y>
+      </Position>
+    </Item>
+    <Item xsi:type="TreeItem">
+      <Position>
+        <X>10.5</X>
+        <Y>6.5</Y>
+      </Position>
+    </Item>
+    <Item xsi:type="TreeItem">
+      <Position>
+        <X>13.5</X>
+        <Y>4.5</Y>
+      </Position>
+    </Item>
+    <Item xsi:type="TreeItem">
+      <Position>
         <X>1.5</X>
-        <Y>3.5</Y>
+        <Y>2.5</Y>
+      </Position>
+    </Item>
+    <Item xsi:type="TreeItem">
+      <Position>
+        <X>17.5</X>
+        <Y>4.5</Y>
+      </Position>
+    </Item>
+    <Item xsi:type="TreeItem">
+      <Position>
+        <X>1.5</X>
+        <Y>6.5</Y>
+      </Position>
+    </Item>
+    <Item xsi:type="TreeItem">
+      <Position>
+        <X>4.5</X>
+        <Y>8.5</Y>
+      </Position>
+    </Item>
+    <Item xsi:type="TreeItem">
+      <Position>
+        <X>10.5</X>
+        <Y>9.5</Y>
+      </Position>
+    </Item>
+    <Item xsi:type="TreeItem">
+      <Position>
+        <X>14.5</X>
+        <Y>8.5</Y>
+      </Position>
+    </Item>
+    <Item xsi:type="TreeItem">
+      <Position>
+        <X>16.5</X>
+        <Y>7.5</Y>
       </Position>
     </Item>
   </Items>
