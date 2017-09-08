@@ -21,11 +21,13 @@ namespace OctoAwesome.Model
         }
 
         public Map Map { get; private set; }
+        public Chunk Chunk { get; private set; }
         public Player Player { get; private set; }
 
         public World(IInputSet input)
         {
             Map = Map.Load(@"Assets\test10.map");
+            Chunk = new Chunk();
             Player = new Player(input, Map);
             
             cellTypes = new Dictionary<CellType, CellTypeDefinition>();
