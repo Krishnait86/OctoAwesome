@@ -6,43 +6,36 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace OctoAwesome.Model
-{
+namespace OctoAwesome.Model {
     [Serializable]
-    public sealed class Map
-    {
-        
+    public sealed class Map {
+
         public int Columns { get; set; }
         public int Rows { get; set; }
 
         public CellType[] Cells { get; set; }
-        public List<Item> Items {get; set;}
+        public List<Item> Items { get; set; }
 
         // This Is OctoAwesome/Model Map! (MapEditor Map) //
-        public Map()
-        {
+        public Map() {
             Items = new List<Item>();
 
-            if (!new StreamReader(@"Assets\test10.map").ReadToEnd().Contains("BoxItem"))
-            {
+            if (!new StreamReader(@"Assets\test40zx40.map").ReadToEnd().Contains("BoxItem")) {
                 Items.Add(new BoxItem() { Position = new Vector2(5.5f, 2.5f) });
             }
         }
 
-        public CellType GetCell(int x, int y)
-        {
+        public CellType GetCell(int x, int y) {
             return Cells[(y * Columns) + x];
         }
 
-        public void SetCell(int x, int y, CellType cellType)
-        {
+        public void SetCell(int x, int y, CellType cellType) {
             Cells[(y * Columns) + x] = cellType;
         }
 
         #region Generators
 
-        public static Map Generate(int width, int height, CellType defaultType)
-        {
+        public static Map Generate(int width, int height, CellType defaultType) {
             if (width < 1 || width > 200)
                 throw new ArgumentException("width");
             if (height < 1 || height > 200)
@@ -53,10 +46,8 @@ namespace OctoAwesome.Model
             map.Rows = height;
             map.Cells = new CellType[width * height];
 
-            for (int x = 0; x < width; x++)
-            {
-                for (int y = 0; y < height; y++)
-                {
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
                     map.SetCell(x, y, defaultType);
                 }
             }
@@ -64,23 +55,19 @@ namespace OctoAwesome.Model
         }
 
         #endregion
-        
+
         #region Loader
 
-        public static Map Load(string filename)
-        {
+        public static Map Load(string filename) {
             XmlSerializer serializer = new XmlSerializer(typeof(Map));
-            using (Stream stream = File.OpenRead(filename))
-            {
+            using (Stream stream = File.OpenRead(filename)) {
                 return (Map)serializer.Deserialize(stream);
             }
         }
 
-        public static void Save(string filename, Map map)
-        {
+        public static void Save(string filename, Map map) {
             XmlSerializer serializer = new XmlSerializer(typeof(Map));
-            using (Stream stream = File.OpenWrite(filename))
-            {
+            using (Stream stream = File.OpenWrite(filename)) {
                 serializer.Serialize(stream, map);
             }
         }
@@ -96,8 +83,7 @@ namespace OctoAwesome.Model
 
     }
 
-    public enum CellType
-    {
+    public enum CellType {
         Grass,
         Sand,
         Water

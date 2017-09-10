@@ -4,15 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OctoAwesome.Model;
-using System.Drawing;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace OctoAwesome.Components
-{
+namespace OctoAwesome.Components {
 
-    internal sealed class CameraComponent : DrawableGameComponent
-    {
+    internal sealed class CameraComponent : DrawableGameComponent {
         private WorldComponent world;
         private InputComponent input;
         private Vector2 renderSize;
@@ -20,33 +17,21 @@ namespace OctoAwesome.Components
         public readonly float MAXSPEED = 1000f;
         public readonly float SCALE = 64f;
 
-        public CameraComponent(Game game, WorldComponent world, InputComponent input) : base(game)
-        {
+        public CameraComponent(Game game, WorldComponent world, InputComponent input) : base(game) {
             this.world = world;
             this.input = input;
         }
 
-        public void SetRenderSize(Vector2 renderSize)
-        {
+        public void SetRenderSize(Vector2 renderSize) {
             this.renderSize = renderSize;
             RecalcViewPort();
         }
 
-        protected override void LoadContent()
-        {
+        protected override void LoadContent() {
             SetRenderSize(new Vector2(GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
         }
 
-        public override void Update(GameTime frameTime)
-        {
-            //Vector2 velocity = new Vector2(
-            //        (input.CamLeft ? -1f : 0f) + (input.CamRight ? 1f : 0f),
-            //        (input.CamUp ? -1f : 0f) + (input.CamDown ? 1f : 0f)
-            //        );
-
-            //velocity = velocity.Normalized();
-
-            //Center += (velocity * MAXSPEED * (float)frameTime.TotalSeconds);
+        public override void Update(GameTime frameTime) {
 
             float posX = (world.World.Player.Position.X * SCALE) - ViewPort.Left;
             float posY = (world.World.Player.Position.Y * SCALE) - ViewPort.Top;
@@ -72,7 +57,7 @@ namespace OctoAwesome.Components
             if (Center.Y < (ViewPort.Height / 2) - 100)
                 Center = new Vector2(Center.X, (ViewPort.Height / 2) - 100);
 
-            if (Center.X > (world.World.PlaygroundSize.X * SCALE)- (ViewPort.Width / 2) + 100)
+            if (Center.X > (world.World.PlaygroundSize.X * SCALE) - (ViewPort.Width / 2) + 100)
                 Center = new Vector2((world.World.PlaygroundSize.X * SCALE) - (ViewPort.Width / 2) + 100, Center.Y);
 
             if (Center.Y > (world.World.PlaygroundSize.Y * SCALE) - (ViewPort.Height / 2) + 100)
@@ -81,8 +66,7 @@ namespace OctoAwesome.Components
             RecalcViewPort();
         }
 
-        private void RecalcViewPort()
-        {
+        private void RecalcViewPort() {
             float offsetX = Center.X - (this.renderSize.X / 2);
             float offsetY = Center.Y - (this.renderSize.Y / 2);
 

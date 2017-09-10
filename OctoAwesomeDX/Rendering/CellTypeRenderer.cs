@@ -5,15 +5,12 @@ using OctoAwesome.Components;
 using OctoAwesome.Model;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OctoAwesome.Rendering
-{
-    internal class CellTypeRenderer
-    {
+namespace OctoAwesome.Rendering {
+    internal class CellTypeRenderer {
         private readonly Texture2D center;
         private readonly Texture2D left;
         private readonly Texture2D right;
@@ -28,8 +25,7 @@ namespace OctoAwesome.Rendering
         private readonly Texture2D lowerLeft_convex;
         private readonly Texture2D lowerRight_convex;
 
-        public CellTypeRenderer(ContentManager content, string name)
-        {
+        public CellTypeRenderer(ContentManager content, string name) {
             center = content.Load<Texture2D>($"Textures/{name}_center");
             left = content.Load<Texture2D>($"Textures/{name}_left");
             right = content.Load<Texture2D>($"Textures/{name}_right");
@@ -45,8 +41,7 @@ namespace OctoAwesome.Rendering
             lowerRight_convex = content.Load<Texture2D>($"Textures/{name}_lowerRight_convex");
         }
 
-        public void Draw(SpriteBatch g, CameraComponent camera, OctoAwesome.Model.World game, int x, int y)
-        {
+        public void Draw(SpriteBatch g, CameraComponent camera, OctoAwesome.Model.World game, int x, int y) {
             CellType centerType = game.Map.GetCell(x, y);
 
             DrawTexture(g, camera, x, y, center);
@@ -80,9 +75,8 @@ namespace OctoAwesome.Rendering
             if (lowerRight && !bottom && !right) DrawTexture(g, camera, x, y, lowerRight_concave);
         }
 
-        public static void DrawTexture(SpriteBatch g, CameraComponent camera, int x, int y, Texture2D image)
-        {
-            g.Draw (image, new Rectangle(
+        public static void DrawTexture(SpriteBatch g, CameraComponent camera, int x, int y, Texture2D image) {
+            g.Draw(image, new Rectangle(
                 (int)(x * camera.SCALE - camera.ViewPort.X),
                 (int)(y * camera.SCALE - camera.ViewPort.Y),
                 (int)camera.SCALE,
